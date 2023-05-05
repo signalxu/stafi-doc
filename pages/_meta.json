@@ -1,7 +1,17 @@
 {
   "index": "Introduction",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
+  "whitepaper":"Whitepaper",
+  "tokenomics":"Tokenomics",
+  "multichain":"Multichain",
+  "rtoken":"rToken",
+  "product":"Product",
+  "-- Guides": {
+    "type": "separator",
+    "title": "Guides"
+  },
+  "userguides":"User Guides",
+  "validatorguides":"Validator Guides",
+  "developerguides":"Developer Guides",
   "about": {
     "title": "About",
     "type": "page"
