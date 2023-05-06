@@ -8,14 +8,14 @@ const config: DocsThemeConfig = {
       <span className='font-bold text-xl'>StaFi Protocol</span>
     </div>,
   project: {
-    link: 'https://github.com/shuding/nextra-docs-template',
+    link: 'https://github.com/',
   },
   chat: {
-    link: 'https://discord.com',
+    link: 'https://discord.gg/Up6vdp8fWx',
   },
   docsRepositoryBase: 'https://github.com/shuding/nextra-docs-template',
   footer: {
-    text: 'Nextra Docs Template',
+    text: 'StaFi Protocol © 2023',
   },
 }
 

@@ -2,16 +2,43 @@
   "index": "Introduction",
   "whitepaper":"Whitepaper",
   "tokenomics":"Tokenomics",
-  "multichain":"Multichain",
   "rtoken":"rToken",
   "product":"Product",
-  "-- Guides": {
+  "-- Chain": {
     "type": "separator",
-    "title": "Guides"
+    "title": "Multi Chain"
   },
-  "userguides":"User Guides",
-  "validatorguides":"Validator Guides",
-  "developerguides":"Developer Guides",
+  "stafichain":"StaFi Chain",
+  "stafihub":"StaFi Hub",
+  "evm":"EVM Compitiable",
+  "-- User": {
+    "type": "separator",
+    "title": "User Staking Guides"
+  },
+  "stakingeth":"Staking ETH with StaFi",
+  "stakingmatic":"Staking MATIC with StaFi",
+  "stakingbnb":"Staking BNB with StaFi",
+  "stakingatom":"Staking ATOM with StaFi",
+  "stakingfis":"Staking FIS with StaFi",
+  "-- Validator": {
+    "type": "separator",
+    "title": "Validator Guides"
+  },
+  "stafirouter":"StaFi Router",
+  "nodeoperator":"Node Operator",
+  "dvt":"Distributed Validator",
+  "-- Security": {
+    "type": "separator",
+    "title": "Security"
+  },
+  "contract":"Contract",
+  "audit":"Audit",
+  "-- Updates": {
+    "type": "separator",
+    "title": "Protocol Updates"
+  },
+  "roadmap":"Roadmap",
+  "changelog":"Change Log",
   "about": {
     "title": "About",
     "type": "page"
