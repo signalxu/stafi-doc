@@ -13,7 +13,7 @@ const config: DocsThemeConfig = {
   chat: {
     link: 'https://discord.gg/Up6vdp8fWx',
   },
-  docsRepositoryBase: 'https://github.com/shuding/nextra-docs-template',
+  docsRepositoryBase: 'https://github.com/signalxu/stafi-doc/blob/main',
   footer: {
     text: 'StaFi Protocol © 2023',
   },
