@@ -17,6 +17,10 @@ const config: DocsThemeConfig = {
   footer: {
     text: 'StaFi Protocol © 2023',
   },
+  sidebar: {
+    defaultMenuCollapseLevel: 1,
+    toggleButton: true,
+  },
 }
 
 export default config
