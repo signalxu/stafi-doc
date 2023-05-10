@@ -342,7 +342,7 @@ To prevent resource abuse, the Protocol imposes a transaction fee (tx fee) for e
 
 In the Ethereum model and other projects, the Gas/Gas Fee model is commonly used. The Gas Fee is calculated based on the computing work and bandwidth and storage required for each transaction. On StaFi Protocol, the Gas Fee is settled in FIS, but the calculation differs from that of bandwidth and storage. A transaction needs to be stored in a block for an extended period, but the calculation of computing work and bandwidth is cleared at the time of sending. Therefore, in the specific calculation, only the size of 1 CPU instruction and the transaction size (in bytes) need to be considered to determine the Gas consumed by the current transaction (computing and bandwidth only).
 
-$Gas_t_x = numberOfCPUinstructions(tx) + α * lengthOf(tx)$
+$Gas_{tx} = numberOfCPUinstructions(tx) + α * lengthOf(tx)$
 
 Of which α refers to the relationship between a CPU instruction and bandwidth, and is generally set to a constant.
 
