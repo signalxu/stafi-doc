@@ -1,0 +1,418 @@
+# rToken Paper
+
+## 1. Abstract
+
+Proof of Stake (PoS) has become a widely adopted consensus algorithm. Since 2012, researchers and teams have worked to address various technical issues such as Nothing-at-Stake and Long-Range Attacks, leading to the maturity of the PoS consensus algorithm by 2018. In that year, PoS (PoS-like) projects such as EOS and Tezos went live, marking the start of a new generation of PoS-based technologies. Over the next two years, PoS experienced a period of rapid growth, with new public chains such as Polkadot, Near, Solana, and Celo all adopting it as their consensus algorithm of choice in 2020.
+
+According to data from [StakingRewards](https://www.stakingrewards.com/), there are currently 157 staking projects with a total of approximately $15 billion in assets being staked. However, if we include assets converted from ETH 2.0 to PoS, the total value of staked assets easily exceeds $40 billion.
+
+As the adoption of PoS increases, there is a need for a solution that allows validators to unlock the liquidity of staked assets while maintaining the security of the original chain. The rToken solution proposed by StaFi addresses this problem by allowing billions of dollars in staked assets to circulate without requiring unstaking. This resolves the liquidity issue faced by stakers and increases the willingness of both crypto enthusiasts and blockchain developers to participate in PoS consensus.
+
+We envision StaFi becoming the standard for unlocking the liquidity of staked assets, empowering hundreds of PoS projects and liberating assets. The rToken solution will initially be implemented on three main public chains: ETH 2.0, Polkadot, and Cosmos. It will not only provide liquidity solutions, namely rETH, rDOT, and rATOM, for these three public chains, but will also provide a standardized rToken protocol for all PoS projects developed on these networks.
+
+In addition to providing rToken staking liquidity solutions for PoS projects, StaFi will also develop cross-chain bridge services that facilitate the circulation of hundreds of rTokens within the Ethereum, Polkadot, and Cosmos ecosystems. For example, an rToken in the Polkadot ecosystem can "cross" its chain to the Ethereum ecosystem to be traded or borrowed on DEXs vice versa.
+
+
+## 2. Introduction
+
+### 2.1. The Definition of rToken
+
+rTokens are a type of token issued by the StaFi Protocol that represents staked assets. It may be used for trading, borrowing, or lending on various platforms. When a user stakes their native token using the Staking Contract, they will receive a certain amount of rTokens based on the amount of native tokens staked at the current exchange rate for the rToken. As the staking rewards for the native token accumulate, the exchange rate for the rToken will increase, and the amount of native tokens that can be redeemed will also increase.
+
+
+### 2.2 Rights represented by rToken
+
+The rToken grants its holders the ability to redeem their native staked assets and receive the corresponding staking rewards at any time. In addition, rToken holders are also entitled to participate in on-chain governance on the original chain.
+
+
+### 2.3 How to obtain rToken
+
+There are two primary ways to obtain rTokens:
+
+1. Staking native tokens through the StaFi Staking Contract
+Upon staking your native tokens, rTokens will be minted and sent to your designated wallet address based on the amount of native tokens staked (Qs) and the current exchange rate for rTokens (Cr).
+
+$Q_r=Q_s/C_r$
+
+2. Purchasing rTokens on Uniswap or other exchanges
+rTokens can be traded and exchanged for native tokens at market exchange rates on decentralized and centralized exchanges that support rTokens.
+
+### 2.4 Why rToken
+
+The development of rTokens was motivated by the need to address the liquidity issues faced by staking assets. In many Proof-of-Stake projects, staked assets are subject to lock-up periods or require a lengthy unbonding period during which the user cannot access their assets or receive staking rewards. For instance, the redemption period for Cosmos is 21 days, Polkadot 28 days, and StaFi 14 days. This limits a user's ability to trade their assets, particularly in the event of an anticipated market downturn, as they cannot place sell orders while their assets are being staked.
+
+However, with StaFi’s liquid staking solution, users can obtain a corresponding amount of rTokens when they stake their assets, enabling them to redeem their native staked assets at any time while still earning staking rewards. Additionally, rTokens can freely circulate and be traded, allowing rToken holders to hedge their exposure without the need to worry about unlocking periods.
+
+The rToken services provided by StaFi address a number of key issues for users:
+
+1. Users no longer have to worry about the liquidity of their staked assets (though the liquidity of rTokens may still be a concern).
+2. There is no longer a need to wait for lengthy redemption periods. Users can immediately exchange their rTokens for native tokens at current market rates.
+3. The StaFi Staking Contract Pool automatically selects Original Validators with the highest return rates for staking, optimizing users' staking yields.
+4. The complex nature of the current NPOS staking mechanism can be confusing for ordinary stakers, particularly with regard to consensus mechanisms, the maximum number of nominators a validator can have, reward determinants, and how to claim and select the best rewards. However, the introduction of rFIS allows FIS stakers to easily participate in FIS staking with just one click.
+
+StaFi's rToken services address several key issues for Proof-of-Stake (PoS) projects:
+
+1. The use of rTokens encourages users to stake their assets, resulting in a higher staking ratio for PoS projects and increased security for the original chains.
+2. The assets locked in the StaFi Staking Contract are distributed to multiple Original Validators, ensuring that the security of the original chain is not compromised regardless of the number of assets locked.
+3. StaFi does not engage in the validation of the original chain, meaning that it does not compete with existing validators. This allows for the development of open-source DeFi solutions in cooperation with existing ecosystems and validators, rather than cannibalizing their traction and business.
+
+
+### 2.5 rToken classification
+
+StaFi's rTokens can be classified into four categories:
+
+1. rETH: rToken for Ethereum 2.0 staking once it goes live.
+2. rTokens for Polkadot Ecosystem: rFIS, rDOT, rKSM, and rTokens for other Substrate-based projects.
+3. rTokens for the Cosmos Ecosystem: rATOM, rKAVA, etc.
+4. Other rTokens, such as rXTZ, rEOS, etc.
+
+The development of rETH, rFIS, and rDOT will be prioritized, with a gradual expansion to other assets and the establishment of rToken protocol standards in partnership with selected partners. If you are interested in learning more and collaborating on solutions for your community, please don't hesitate to reach out to us.
+
+
+### 2.6 The standards of rToken protocol
+
+Following the development and support of five rTokens - rFIS, rETH, rDOT, rKSM, and rATOM - StaFi will work to accelerate the development of rToken protocol standards for different public chains. This will involve supporting various PoS projects and their developer communities in the development of their own rTokens through the use of our toolkits. It is our mission and vision at StaFi to empower the liquidity of all staked assets in PoS projects. \
+
+
+## 3.Business architecture
+
+### 3.1 Introduction of different parties
+
+#### 3.1.1 Stakers
+
+In the context of rTokens, "Stakers" refers solely to participants of staking through StaFi. By using the Stake function provided by StaFi, these individuals can easily participate in staking with just one click, without the need to study the PoS consensus mechanism or reward claiming rules of the original chain.
+
+Staking through StaFi also provides access to liquidity solutions and flexibility in terms of the amount of tokens that can be staked. For example, Ethereum 2.0 staking requires a minimum of 32 ETH, but with StaFi's rToken solution, users can stake any amount they are comfortable with, whether it be 0.01 ETH or 10,000 ETH.
+
+#### 3.1.2 Original Validators
+
+##### 3.1.2.1 Definition
+
+"Original Validators" refer to validators on the original chain who have joined the Staking Contract program. To mitigate the potential threat to the security of the original chain posed by the staking of assets in the StaFi Staking Contract (SC), StaFi does not run any nodes on the original chain. Instead, tokens deposited by users in the SC are only distributed to Original Validators.
+
+##### 3.1.2.2 Validator nomination rules
+
+To ensure the optimal performance of its Original Validators, StaFi will implement an intelligent rating system that quantitatively scores the performance of each Original Validator participating in the rToken Staking Contract. Funds will be automatically allocated to Original Validators based on their ranking, with higher performing OVs receiving a greater share.
+
+The main rating criteria include:
+
+1. The background of the node operator
+2. The number and duration of disconnections
+3. Historical slashes
+4. The amount of staked FIS tokens
+
+As part of its "all for one, one for all" vision, StaFi will also issue FIS tokens as a reward to validators who support the rToken business and join the Staking Contract program, with the amount based on their scores.
+
+The Staking Contract itself will implement an automatic staking strategy that stakes tokens to the most appropriate Original Validators based on expected return rates, staked token size, commissions, slash history, and other factors. However, due to differences in the staking mechanisms of various blockchains, the automatic staking strategy may vary. \
+
+**rFIS**
+
+As StaFi utilizes the NPoS consensus, the staking income earned by each elected node is relatively equal and not based on the number of staked FIS. In addition, the nominators (stakers) of the elected nodes will share in the staking rewards based on their proportion of votes. This means that if one elected node has more staked FIS than another, stakers will earn a higher return on investment if they choose to stake with the latter.
+
+To implement this strategy, the rFIS Staking Contract will automatically execute the following nomination process:
+
+1. Nominations are carried out every Era (6 hours).
+2. Original Validators (OVs) with a commission set at 10% or lower are selected.
+3. The nominations of the selected OVs are sorted from low to high, and the first N OVs (where N is set at 10) are chosen for nomination.
+
+Note: Both R (the commission rate) and N (the number of OVs) are governance parameters that may be adjusted based on market conditions and product development.
+
+**rDOT**
+
+The selection process for Original Validators for rDOT will be similar to that of rFIS, as both projects utilize NPoS mechanisms. Additionally, the rules for validator nomination are also similar in both cases.
+
+**rETH**
+
+In the context of rETH, Original Validators specifically refer to Ethereum 2.0 validators who have joined the StaFi Ethereum 2.0 Staking Contract program. To become a validator on the StaFi Contract Pool for rETH, users must run a node through the Onboarding Tool provided by StaFi, pay a certain amount of ETH as margin, and deposit it in the Ethereum 2.0 Deposit Contract along with the staker's assets.
+
+Whenever a user deposits at least 32 ETH, Original Validators can apply to set up and operate a new node. The platform will rank Original Validators based on their historical scores, with those with higher scores having an advantage.
+
+#### 3.1.3 Special StaFi Validator
+
+Security has always been a top priority for us and we have explored various ways to ensure the security of users' staked assets. To comprehensively ensure fund safety in a decentralized manner, we have adopted the following measures:
+
+1. The private keys of the Staking Contract will be comprehensively managed by the StaFi Special Validators (SSV) on the StaFi chain using multi-party secure computing (MPC) and multi-signatures. StaFi will use the MPC scheme to create 21 fragments of the private key to the Staking Contract Pool, which will be distributed to 21 validators in the SSV group on the StaFi chain. It requires the participation of 16 out of the 21 SSVs to fully recover the private key and gain control of the operational authority of the Staking Contract deployed.
+2. The Staking Contract is not vulnerable to a single point of failure due to it being managed by a group of 21 unidentified SSVs, which will be rotated frequently. While this mechanism significantly improves the security of the Staking Contract, we still need to consider the possibility of SSV collusion. To further protect against potential collusion, SSVs will need to stake a certain amount of FIS (StaFi's native token) in the StaFi Vault, and the overall amount of FIS staked by the 21 SSVs should be greater than the value of the staked native tokens in the Staking Contract Pool. If collusion does occur, the system will penalize the perpetrators by confiscating their staked FIS and using it to compensate users.
+
+For more details on SSV election, multi-signature, and penalties, please refer to the StaFi Whitepaper: [https://docs.stafi.io/stafi-whitepaper/whitepaper](https://docs.stafi.io/stafi-whitepaper/whitepaper) 
+
+### 3.2 Technical architecture
+
+The rToken system consists of six key components:
+
+1. Interchain communication: This component enables communication between the original chain and the StaFi chain.
+2. Staking Contract deployment: This component handles the deployment of Staking Contracts on the StaFi chain, which are used to hold users' staked assets.
+3. SSV verification: This component handles the verification of SSVs, who are responsible for managing the private keys of the Staking Contracts and ensuring their security.
+4. rToken exchange rate: This component determines the exchange rate between rTokens and the native staked assets.
+5. User Staking income settlement: This component handles the calculation and distribution of Staking income to users who have staked their assets through the Staking Contract.
+6. Validator income settlement: This component handles the calculation and distribution of income to Original Validators, who participate in the verification process on the original chain.
+
+![alt_text](images/rtokenpaper1.png)
+
+The technical architecture of rETH differs from that of a standard rToken due to the unique characteristics of Ethereum 2.0 Staking. The system is comprised of three layers:
+
+1. The top layer is responsible for user fund management and settlement. Users can participate in Staking through the Staking Contract deployed on Ethereum 1.0. The system will mint and distribute rETH based on the amount of ETH Staked and the current exchange rate. It will also handle the clearance and settlement of funds deposited and redeemed by users.
+2. The middle layer is responsible for the distribution and settlement of staking funds. StaFi will deploy Staking Pools based on the amount of funds locked in the Staking Contract. StaFi will deposit 32 ETH in each pool and stake to the Ethereum 2.0 Deposit Contract after matching with validators.
+3. The bottom layer is responsible for the management and monitoring of Ethereum 2.0 nodes (Original Validators). StaFi provides Original Validators with a set of standardized onboarding tools to operate the Ethereum 2.0 node client and monitor events on the beacon chain in real-time, including node operation status, staking rewards, disconnections, Slash events, and validator drop-offs.
+
+![alt_text](images/rtokenpaper2.png)
+
+
+## 4.The Exchange Rate of rToken
+
+### 4.1 Calculation method
+
+The rToken exchange rate (Ci) is determined by a variety of factors, including the total amount of native token staked in the Staking Contract (Qstk), the total amount of redeemed native token (Qred), the amount of staking rewards (Qrew), the amount of slash (Qslh), the amount of penalty (Qpey), the commission ratio (Rcom), the total amount of rToken issued (M), and the total amount of rToken destroyed (N). In general, the exchange rate is positively correlated with the staking income, which is influenced by these variables. The exact formula for calculating the rToken exchange rate is as follows:
+
+$C_{i}=\frac{\left(Q_{s t k}-Q_{r e d}\right)+\left(Q_{\text {rew }}-Q_{s l h}-Q_{p e y}\right) *\left(1-R_{c o m}\right)}{M-N}$
+
+### 4.2 Exchange rate update frequency
+
+The rToken exchange rate will be determined and announced by the system based on the status of Staking Reward Claims and the occurrence of Slash events on the original blockchain. This ensures that the rToken exchange rate accurately reflects the current state and activity of the underlying network. \
+
+<table>
+  <tr>
+   <td><strong>rToken</strong>
+   </td>
+   <td><strong>Exchange Rate Update Frequency</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>rETH
+   </td>
+   <td>8 Hours
+   </td>
+  </tr>
+  <tr>
+   <td>rBNB
+   </td>
+   <td>24 Hours
+   </td>
+  </tr>
+  <tr>
+   <td>rFIS
+   </td>
+   <td>6 Hours
+   </td>
+  </tr>
+  <tr>
+   <td>rDOT
+   </td>
+   <td>24 Hours
+   </td>
+  </tr>
+  <tr>
+   <td>rKSM
+   </td>
+   <td>6 Hours
+   </td>
+  </tr>
+  <tr>
+   <td>rATOM
+   </td>
+   <td>24 Hours
+   </td>
+  </tr>
+  <tr>
+   <td>rSOL
+   </td>
+   <td>66 Hours
+   </td>
+  </tr>
+  <tr>
+   <td>rMATIC
+   </td>
+   <td>24 Hours
+   </td>
+  </tr>
+</table>
+
+### 4.3 Slash
+
+To address the risk of slashing in staking, the following measures will be implemented:
+
+1. The Staking Contract will carefully evaluate the track record of original validators and only match staking funds with those who have not been slashed in the past.
+2. Staking funds will be distributed among multiple original validators to diversify risk and avoid a single point of failure. This means that even if a particular original validator is slashed, the impact on the staking fund pool will be minimized.
+
+Additionally, original validators will be required to provide collateral deposits, the amount of which may vary depending on the specific project and the severity of potential slashing penalties. In the event of a slash, the relevant collateral will be used to compensate stakers for any losses. This is particularly relevant in Ethereum 2.0 staking, where the principal amount staked by users could potentially be reduced by up to 50% in extreme circumstances.
+
+To become a validator in the StaFi Contract Pool for the rETH product, individuals must run their node through the provided Onboarding tool, provide a margin of N ETH, and deposit this margin along with their staking assets in the Ethereum 2.0 Deposit Contract. This helps protect the user's assets in case their node is slashed, as the margin will be used to compensate for any resulting losses.
+
+The total margin (Pi) required for a node operator to deposit is calculated based on the current network's defined N value and the total number of running nodes (Mv):
+
+$P_{i}=N \times M_{v}$
+
+This ensures that the necessary margin is available to cover any potential slashing losses and protect the assets of stakers. The value of N is determined by various factors, including the operation of the ETH2.0 network, the historical performance of the node operator, and the total number of nodes. Taking into account the slashing rules of ETH 2.0, the value of N will be set between 4 ETH and 16 ETH, with a default value of 8 ETH.
+
+Since the redemption function of ETH2.0 will not be available until Phase 2 is launched, validators will not be able to charge commissions to cover their operating costs for an extended period of time. To incentivize validators to join the StaFi rETH solution, we will allow original validators to request liquidity from StaFi during this time.
+
+For example, suppose node operator Bob runs several (X) nodes, each staked with N ETH. If Bob lacks liquidity in the short term, they can sell their staked ETH to StaFi at the current FIS/ETH exchange rate to obtain FIS (either ERC 20 FIS or StaFi Mainnet FIS). Bob can then convert the FIS into liquid assets by selling it on the market. \
+
+The maximum amount of ETH that Bob can sell (S) may be calculated:
+
+$S \leq 2 \times X$
+
+In the future, we plan to offer insurance products in collaboration with DeFi insurance projects to protect validators and users from losses due to slashing for each rToken solution. These insurance products will ensure that even if a slashing event does occur, the validator and users will be compensated for their losses. This will provide an additional layer of protection and peace of mind for those participating in staking through our rToken solutions. \
+
+### 4.4 Reward Claim Mechanisms 
+
+StaFi will ensure users can claim their staking rewards in a timely manner according to the specific rules of each proof-of-stake (PoS) project. We will ensure that users are able to receive their rewards in accordance with the relevant project's rules and guidelines. \
+
+**rFIS**
+
+The StaFi network calculates rewards for all validators every Era (6 hours). However, validators and nominators (stakers) must manually claim their rewards to receive them. If rewards are not claimed within 84 Eras (21 days), they will be destroyed.
+
+To ensure that stakers receive their rewards in a timely manner, the StaFi Staking Contract will use smart contracts to claim rewards on a regular basis, such as every 6 hours. If any of the following two events occur, StaFi will update the exchange rate of the rToken:
+
+1. Other stakers manually claim their rewards, causing the StaFi Staking Contract to receive the staking reward before the next scheduled automatic claim.
+2. The automatic claim is triggered (every 6 hours) and the Staking Contract receives staking rewards.
+
+**rDOT**
+
+The Polkadot network calculates rewards for all validators every Era (24 hours). However, similar to StaFi, validators and nominators (stakers) must manually claim their rewards to receive them. If rewards are not claimed within 84 Eras (84 days), they will be destroyed.
+
+To ensure that stakers receive their rewards in a timely manner, the StaFi Staking Contract will use smart contracts to claim rewards on a regular basis, such as every 24 hours. If any of the following two events occur, StaFi will update the exchange rate of the rToken:
+
+1. Other stakers manually claim their rewards, causing the StaFi Staking Contract to receive the staking reward before the next scheduled automatic claim.
+2. The automatic claim is triggered (every 24 hours) and the Staking Contract receives staking rewards.
+
+**rETH**
+
+According to official documents from the Ethereum Foundation, staking rewards in Ethereum 2.0 are issued on the beacon chain every 6.5 minutes, but they cannot currently be claimed or transferred. As a result, the reward claiming function will not be available on StaFi until more information becomes available.
+
+Therefore, StaFi is currently not considering the impact of the reward claiming function in the Ethereum 2.0 network when calculating the exchange rate. We will continue to monitor developments and update our calculations as necessary when more information becomes available.
+
+### 4.5 rToken/Token market price and rToken exchange rate
+
+The exchange rate of rToken reflects the relative value of rToken to the Native Token within the StaFi Staking Contract. For instance, if the current rToken/Token exchange rate is 2, an rToken holder can redeem 2 Native Tokens from the StaFi Staking Contract by burning 1 rToken.
+
+The exchange rate of rToken establishes the basis for the rToken/Token price in the secondary market. As rToken/Token can be traded continuously and market fluctuations may influence its price, short-term rToken/Token market prices and Token exchange rates may not always align. However, in an efficient market, any discrepancies between the rToken/Token market price and the rToken exchange rate are likely to be quickly identified and corrected.
+
+
+## 5.rToken Use Cases
+
+### 5.1 Summary
+
+StaFi recognizes that providing an interest-bearing rToken service is just the beginning. The liquidity challenges faced by staked assets will not be fully addressed unless rToken can be easily traded, exchanged, or used in other financial applications. To address this, StaFi is committed to developing a range of use cases for rToken, such as DEXs, lending, and synthetic assets.
+
+1. For instance, StaFi is dedicated to creating cross-chain bridge services that will allow rToken to be used within the Ethereum ecosystem, and also enable the use of rETH in Cosmos (Tendermint)-compatible blockchains. We plan to achieve this with the assistance of other ecosystem leaders like xDai, 1inch, and developers who are passionate about our mission.
+2. Additionally, StaFi will work with DEXs, lending protocols, and synthetic asset platforms in the Ethereum ecosystem to allow non-ETH rTokens such as rFIS, rDOT, rKSM, rATOM, etc. to be traded on exchanges like Uniswap. Users will also be able to use their rTokens in liquidity mining programs or as collateral on platforms like Aave.
+
+### 5.2 Cross-chain Bridge(rBridge)
+
+StaFi's developed cross-chain Bridge function will enable rToken to achieve interoperability. For example, through rBridge, rFIS on the StaFi chain can be converted to rFIS on the Polkadot chain, allowing rFIS holders to access DeFi applications built on Polkadot. This means that rETH can also potentially be converted to its counterparts on Cosmos, allowing its holders to access services built on Cosmos.
+
+### 5.3 Secondary markets
+
+In addition to being able to redeem native tokens from the StaFi Staking Contract, rToken holders can sell their rTokens on a range of platforms with rToken/Token, rToken/ETH, and rToken/USDT pairs. We have previously announced a collaboration with [AscendEX (Formerly BitMax)](https://medium.com/stafi/an-ama-on-staking-derivatives-by-bitmax-stafi-12412c0ca8), a popular centralized exchange among users, and will strive to add more partners and liquidity providers, including dedicated liquidity programs for all users.
+
+rTokens can be traded on decentralized exchanges on the original chain or others that support rBridge. StaFi will also implement liquidity incentive programs to encourage liquidity for rTokens on DEXs.
+
+Furthermore, StaFi will collaborate with centralized exchanges to list rToken/Token, rToken/USDT, and other pairs, which will help to improve the circulation and liquidity of rTokens.
+
+
+## 6.Economics 
+
+### 6.1 Mint rToken
+
+To encourage the adoption of the rToken solution, StaFi will not charge any fees for minting rTokens \
+
+### 6.2 Commission
+
+StaFi and Original Validators will charge a total of 20% of the net income from the rFIS Staking Contract as commission. The commission ratio for Original Validators will be dynamically adjusted based on the number of validators in the StaFi Staking Contract. \
+ 
+$\text { Commission }_{\text {validator }}+\text { Commission }_{\text {stafi }}=20 \%$
+
+Initially, the commission rate for Original Validators is set at 10%. This means that Original Validators will receive 10% of the net income from rFIS Staking contracts as commission. \
+
+### 6.3 Burn rToken
+
+To redeem FIS, users simply need to apply for redemption through StaFi's Staking Dashboard. The redemption process is generally divided into two steps:
+
+Step 1: Submit the number of rFIS to be redeemed, with the maximum amount being the total number of rFIS the user holds.
+
+Step 2: Once the submission is confirmed, the system will burn the corresponding number of rFIS, calculate the quantity of FIS to be redeemed based on the current exchange rate, and deduct a service charge and commission fee. The remaining tokens will then be sent to the user's designated wallet address.
+
+The fee for redeeming rFIS (Feered) is calculated using the following formula: Feered = M * Rc * Rr, where M is the number of rTokens the user applies for redemption, Rc is the current rToken/Token exchange rate, and Rr is the redemption rate:
+
+$F e e_{r e d}=M \star R_{c} \star R_{r}$
+
+Redemption fee (Rr) is initially set to 0.2%.
+
+
+## 7.Income Distribution Plan
+
+### 7.1. Revenue Generation
+
+The protocol revenue generated from rTokens primarily comes from the following sources:
+
+1. Earnings from the rToken business, such as the commission or transaction fees charged for redemption. These revenues are in the form of native tokens of various proof-of-stake projects, such as ETH, DOT, KSM, and FIS.
+2. Commission charged for rBridge services, which is also received in the same tokens as above.
+
+### 7.2 Income Distribution Plan
+
+As a widely supported DeFi protocol, we will distribute our earnings back to our supporters through the following methods:
+
+70% will be returned to FIS token holders in the form of buybacks and burns or shared with token holders.
+
+20% will be deposited in the StaFi Treasury to support the ongoing development and promotion of the StaFi project and rTokens.
+
+10% will be allocated to the StaFi team.
+
+Our goal is to evolve into a proper decentralized autonomous organization (DAO) with long-term incentives for both developers and liquidity providers. We believe that a smart treasury model, as explained by Placeholder, is the best approach for achieving this.
+
+
+## 8.Governance
+
+As the rToken Model is in its early stages, the StaFi team will take on the responsibility of governance while StaFi products such as rBridge, rToken, and Staking Derivatives are being developed and community autonomy rules are being established. We believe that it is important to approach decentralized governance with caution at this stage.
+
+Once these core products are more mature and the community autonomy rules are clearly defined, we plan to gradually delegate decision-making on rToken-related issues to the community through on-chain governance. By this point, community members will be more familiar with the StaFi DAO governance process and will be better equipped to make informed decisions about products and businesses. In the future, the StaFi team aims to act as an assistant to the community in decision-making, focusing on the implementation of community-driven ideas. We believe that this approach will foster a strong relationship between the community and the team and lay the foundation for full autonomy of StaFi. Our ultimate goal is to achieve this level of autonomy in the near future.
+
+FIS holders will have the ability to propose on-chain initiatives for the community to vote on, covering a range of topics including:
+
+1. Product planning: For example, proposing the creation of a rToken for a proof-of-stake project, or suggesting changes to the intended use cases for a specific rToken.
+2. Adjustment of critical parameters: Such as proposing changes to the redemption rate, commission rate, mint rate, and other important system parameters.
+3. Treasury expenditure: This could include requesting funding for the development of rToken tools or researching staking derivatives.
+4. Other topics: Including the FIS token inflation rate, revenue distribution, dividends, buybacks, and more.
+
+
+## 9.The Relations between rToken and StaFi chain
+
+### 9.1 The security mechanism of Staking Contract
+
+The private key management of the rToken Staking Contract will be handled using a decentralized and highly secure approach: MPC+ multi-signature technology implemented by the SSV validator on the StaFi chain. This ensures the security and decentralization of the Staking Contract.
+
+### 9.2 Initial issuance of rToken assets
+
+Each rToken asset will initially be issued on the StaFi chain, where a diverse range of rTokens will be stored and made available for circulation on various DeFi ecosystems through interoperability with different public chains via the ETH bridge, Polkadot bridge, or Cosmos bridge. This allows for the seamless circulation of rToken assets within different DeFi ecosystems. \
+
+
+## 10. Value Capture of FIS
+
+We believe that the rToken business model will provide multiple value capture mechanisms to support the economic dominance of FIS in the market:
+
+1. The native tokens locked in the Staking Contract will contribute to the value of FIS tokens, particularly because the FIS mortgaged by SSV is actually higher than the amount of native tokens in the pool.
+2. 70% of the income generated from the rToken solution will be distributed back to FIS token holders in the form of repurchase and burn or dividends.
+3. In the future, rToken will interact with the Ethereum, Polkadot, and Cosmos ecosystems through cross-chain bridges, and 70% of the revenue from this activity will also be used to repurchase and burn FIS.
+4. Original validators can stake FIS tokens to increase their credibility, which will give them priority in the allocation of funds.
+
+
+## 11.Prospects
+
+At StaFi, our vision is to provide liquidity solutions for staked assets through the adoption of rToken, and to create liquidity and utility for these assets by using them as collateral. rToken, as an interest-earning asset, can also serve as the underlying asset for various index funds, futures, and other derivative products in the digital asset world. Currently, however, our priority is to create rTokens for key proof-of-stake projects. Rather than building our own proprietary DEX or lending platform at this time, we will focus on collaborating with reliable partners to grow together.
+
+In the future, as there may be a large number of rTokens circulating in the crypto field, we will consider the possibility of building our own DEX and lending platform to accommodate this growth. With 50-100 or more rTokens in circulation, there is potential for StaFi to create a DEX and lending platform to support them.
+
+### 11.1 Decentralized Exchanges (DEX)
+
+As more rTokens are minted, StaFi will consider establishing a DEX specifically designed for their trading. The DEX will utilize an automated market maker (AMM) or a similar model to provide benefits to liquidity providers, such as reduced slippage and a more robust trading environment. With this DEX in place, all rTokens that follow the StaFi rToken protocol standard will be able to trade freely.
+
+In addition to a DEX, StaFi may also launch a rToken lending platform in the future. This platform would allow rTokens created with the StaFi rToken protocol to earn additional interest and be used as collateral to lend native tokens or other assets with higher liquidity, such as ETH and USDT. This is a long-term goal for our team.
+
+### 11.2 Derivatives based on rTokens
+
+As the circulation of rTokens increases, StaFi will investigate the potential for rToken-based derivatives, leveraging the interest-bearing attributes of rTokens. For example, we may collaborate with Synthetix to create index funds using rTokens as the underlying assets, or work with Nexus Mutual to offer insurance products based on the risk of validator slashing. These are just a couple of possibilities – the versatility of rToken-based derivatives is vast, and we welcome the opportunity to work with developers and partners who share our vision for these innovative financial instruments.
+
+###  11.3 Release the liquidity of all Staked assets
+
+StaFi is exploring ways to enable the free circulation of staked assets in PoS projects. This includes the potential liberation of staked tokens in dApps on the Ethereum platform and the possibility of allowing the secondary market circulation of locked assets in loans. We are currently considering the following design approaches for this initiative.
