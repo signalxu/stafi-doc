@@ -15,7 +15,7 @@ const config: DocsThemeConfig = {
   },
   docsRepositoryBase: 'https://github.com/signalxu/stafi-doc/blob/main',
   footer: {
-    text: 'StaFi Protocol © 2023',
+    text: 'StaFi Protocol ©',
   },
   sidebar: {
     defaultMenuCollapseLevel: 1,
