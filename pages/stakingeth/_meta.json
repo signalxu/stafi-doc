@@ -1,11 +1,8 @@
 {
-  "overview": "Staking Overview",
-  "ethereumworks":"How Ethereum Staking Works",
-  "stafiworks":"How StaFi Staked ETH Works",
+  "howtostake":"How to Stake with StaFi",
   "reth":"The rETH Token",
   "commission":"Commission Fee",
-  "howtostake":"How to stake with StaFi",
   "unstake":"Unstake",
-  "dexonl1":"Staking via DEX on Ethereum(L1)",
-  "dexonl2":"Staking via DEX on Layer 2"
+  "dex":"Staking via DEX",
+  "liquidity":"Liquidity Mining"
 }
