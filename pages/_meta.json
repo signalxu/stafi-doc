@@ -20,11 +20,14 @@
   "stakingmatic":"Staking MATIC with StaFi",
   "stakingbnb":"Staking BNB with StaFi",
   "stakingatom":"Staking ATOM with StaFi",
-  "stakingsol":"Staking SOL with StaFi",
-  "stakingdot":"Staking DOT with StaFi",
-  "stakingksm":"Staking KSM with StaFi",
+  "stakingiris": "Staking IRIS with StaFi",
+  "stakingswth":"Staking SWTH with StaFi",
   "stakinghuahua":"Staking HUAHUA with StaFi",
+  "stakingdot":"Staking DOT with StaFi",
   "stakingfis":"Staking FIS with StaFi",
+  "stakingksm":"Staking KSM with StaFi",
+  "stakingsol":"Staking SOL with StaFi",
+
   "-- Validator": {
     "type": "separator",
     "title": "Validator Guides"
