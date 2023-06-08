@@ -33,8 +33,9 @@
     "title": "Validator Guides"
   },
   "stafirouter":"StaFi Router",
-  "stafichainnodeoperator":"StaFi Chain",
-  "dvt":"Distributed Validator",
+  "stafichainnodeoperator":"StaFi Chain Validator",
+  "stafichainnominator":"StaFi Chain Nominator",
+  "stafihubvalidator":"StaFi Hub Validator",
   "-- Developer": {
     "type": "separator",
     "title": "Developer Guides"

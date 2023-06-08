@@ -1,5 +1,7 @@
 # StaFi Chain Validator
 
+import { Callout } from 'nextra-theme-docs'
+
 ## Overview
 
 ### Introduction
@@ -178,11 +180,126 @@ Flags in detail
 |--chain mainnet | Specifies which chain specification to use. [default: mainnet] |
 |--port 30333 | Specifies the port that your node will listen for p2p traffic on. 30333 is the default and this flag can be omitted if you're happy with the default. If run multiple nodes on the same physical system, you will need to explicitly specify a different port for it. |
 |--ws-port 9944 | Specifies the port that your node will listen for incoming web socket traffic on. 9944 is the default, so it can also be omitted. |
-|--rpc-port 9933 |
-|--validator |
-|--name |
-|--execution |
-|--rpc-methods |
-|--rpc-cors |
-|--ws-external | 
+|--rpc-port 9933 | Specifies the port that your node will listen for incoming RPC traffic on. 9933 is the default, so it can also be omitted. ｜
+|--validator | Means that we want to participate in block production and finalization rather than just sync the network. ｜
+|--name | human-readable name in the telemetry UI ｜
+|--execution | The execution strategy that should be used by all execution contexts [possible values: Native, Wasm, Both, NativeElseWasm] ｜
+|--rpc-methods | RPC methods to expose. [default: Auto] [possible values: Auto, Safe, Unsafe] ｜
+|--rpc-cors | Specify browser Origins allowed to access the HTTP & WS RPC servers ｜
+|--ws-external | Listen to all Websocket interfaces ｜
+
+#### Upgrade
+
+Make sure you are on the right branch. And there is no need to shut down your node when recompiling.
+
+```shell copy
+cargo build --release
+```
+Please restart your node after the compiling.
+
+#### Clean
+
+If you need to start from the beginning. You should clean your db.
+
+```shell copy
+### Mainnet
+./target/release/stafi purge-chain --chain=mainnet
+
+### Testnet
+./target/release/stafi purge-chain --chain=testnet
+```
+## Become a Validator
+
+<Callout type="info">
+You need to have some FIS tokens to continue.
+</Callout>
+You should select Stafi Mainnet(hosted by Foundation) in StaFiapp first.
+
+![Validator](/image/becomeavalidator_1.png)
+
+![Validator](/image/becomeavalidator_2.webp)
+
+## Validator Registration
+
+### Bond FIS tokens
+
+It is highly recommended that you make your controller and stash accounts be two separate accounts. For this, you will create two accounts by StaFiapp and make sure each of them have at least enough funds to pay the fees for making transactions. Keep most of your funds in the stash account since it is meant to be the custodian of your staking funds.
+
+Make sure not to bond all your FIS balance since you will be unable to pay transaction fees from your bonded balance.
+
+It is now time to set up our validator. We will do the following:
+
+- **Bond the FIS tokens of the Stash account**. These FIS tokens will be put at stake for the security of the network and can be slashed.
+- **Select the Controller**. This is the account that will decide when to start or stop validating.
+
+First, open StaFiapp, go to the Staking section. Click on "Account Actions", and then the "+ Stash" button.
+
+- Stash account - Select your Stash account. In this example, we will bond 10 FIS tokens - make sure that your Stash account contains at least this much. You can, of course, stake more than this.
+- Controller account - Select the Controller account created earlier. This account will also need a small amount of FIS tokens in order to start and stop validating.
+- Value bonded - How much FIS tokens from the Stash account you want to bond/stake. Note that you do not need to bond all of the tokens in that account. Also note that you can always bond more tokens later. However, withdrawing any bonded amount requires the duration of the unbonding period. On Stafi testnet Sitara, the unbonding period is 21 hours. On Stafi mainnet, the planned unbonding period is 14 days.
+- Payment destination - The account where the rewards from validating are sent.
+
+Once everything is filled in properly, click Bond and sign the transaction with your Stash account.
+
+After a few seconds, you should see an "ExtrinsicSuccess" message. You should now see a new card with all your accounts (note: you may need to refresh the screen). The bonded amount on the right corresponds to the funds bonded by the Stash account.
+
+**Set Session Keys**
+
+Once your node is fully synced, you can set the session keys. Just make sure you are running the node in validator mode.
+
+**Generating the Session Keys**
+
+On your node server, it is easier to run this command (while the node is running with the default HTTP RPC port configured):
+
+``` shell copy
+curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' http://localhost:9933
+```
+
+The output will have a hex-encoded "result" field. The result is the concatenation of the four public keys. Save this result for a later step.
+
+**Submitting the setKeys Transaction**
+
+You need to tell the chain your Session keys by signing and submitting an extrinsic. This is what associates your validator with your Controller account.
+
+Go to **Staking > Account Actions**, and click "Set Session Key" on the bonding account you generated earlier. Enter the output from author_rotateKeys in the field and click "Set Session Key".
+
+![Validator](/image/becomeavalidator_4.png)
+
+Submit this extrinsic and you are now ready to start validating.
+Validate
+
+To verify that your node is live and synchronized, head to Telemetry and find your node. Note that this will show all nodes on the Stafi network, which is why it is important to select a unique name!
+
+If everything looks good, go ahead and click on "Validate" in Stafi-apps.
+
+Payment preferences - You can specify the percentage of the rewards that will get paid to you. The remaining will be split among your nominators.
+
+Click "Validate".
+
+If you go to the "Staking" tab, you will see a list of active validators currently running on the network. At the top of the page, it shows the number of validator slots that are available as well as the number of nodes that have signaled their intention to be a validator. You can go to the "Waiting" tab to double check to see whether your node is listed there.
+
+The validator set is refreshed every era. In the next era, if there is a slot available and your node is selected to join the validator set, your node will become an active validator. Until then, it will remain in the waiting queue. If your validator is not selected to become part of the validator set, it will remain in the waiting queue until it is. There is no need to re-start if you are not selected for the validator set in a particular era. However, it may be necessary to increase the number of FIS tokens staked or seek out nominators for your validator in order to join the validator set.
+
+Congratulations! If you have followed all of these steps, and been selected to be a part of the validator set, you are now running a Stafi validator!
+
+## Register an identity
+
+Stafi provides a naming system that allows participants to add personal information to their on-chain account.
+
+You should select Stafi Mainnet(hosted by Foundation) in StaFiapp first.
+
+Set an Identity
+
+Users can register some default fields like legal name, display name, website, Twitter handle, Riot handle, etc. along with extra, custom fields for which they would like attestations. Users must reserve funds in a bond to store their information on chain - 10 FIS per identity, and 2.5 FIS per each field beyond the legal name. These funds are locked, not spent - they are returned when the identity is cleared. Each field can store up to 32 bytes of information, so the data must be less than that. When inputting the data manually through the Extrinsics UI, a UTF8 to bytes converter can help.
+
+The easiest way to add the built-in fields is to click the gear icon next to one's account and select "Set on-chain identity".
+
+![Validator](/image/becomeavalidator_5.webp)
+
+A popup will appear, offering the default fields.
+
+![Validator](/image/becomeavalidator_6.png)
+
+You can set the legal name as your name on telemetry.
+
 
