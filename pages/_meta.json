@@ -40,7 +40,7 @@
     "type": "separator",
     "title": "Developer Guides"
   },
-  "integration":"rToken Integration",
+  "cosmosintegration":"COSMOS rToken Integration",
   "-- Security": {
     "type": "separator",
     "title": "Security"
