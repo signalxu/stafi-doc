@@ -23,13 +23,13 @@ nextra guide: https://nextra.site/docs/guide
 - h1: `#`
 - h2: `##`
 - h3: `###`
-- a:`[StaFi](https://stafi.io "title")`
+- a: `[StaFi](https://stafi.io "title")`
 - blockquote: `> A greater than`
 - br: `\`
 - em: `* *`
 - img: `![Alt text](/image/logo.png "title")`
 - li: `- StaFi`
-- ol: ``1.`
+- ol: `1.`
 - strong: ` **  ** `
 - strikethrough: ` ~~  ~~ `
 
